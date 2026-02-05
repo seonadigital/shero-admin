@@ -1,176 +1,147 @@
-<p align="center">
-  <a href="http://www.bagisto.com">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/bagisto/temp-media/0b0984778fae92633f57e625c5494ead1fe320c3/dark-logo-P5H7MBtx.svg">
-      <source media="(prefers-color-scheme: light)" srcset="https://bagisto.com/wp-content/themes/bagisto/images/logo.png">
-      <img src="https://bagisto.com/wp-content/themes/bagisto/images/logo.png" alt="Bagisto logo">
-    </picture>
-  </a>
-</p>
+# shero-admin
 
-<p align="center">
-    <a href="https://packagist.org/packages/bagisto/bagisto"><img src="https://poser.pugx.org/bagisto/bagisto/d/total.svg" alt="Total Downloads"></a>
-    <a href="https://packagist.org/packages/bagisto/bagisto"><img src="https://poser.pugx.org/bagisto/bagisto/v/stable.svg" alt="Latest Stable Version"></a>
-    <a href="https://packagist.org/packages/bagisto/bagisto"><img src="https://poser.pugx.org/bagisto/bagisto/license.svg" alt="License"></a>
-    <a href="#backers"><img src="https://opencollective.com/bagisto/backers/badge.svg" alt="Backers on Open Collective"></a>
-    <a href="#sponsors"><img src="https://opencollective.com/bagisto/sponsors/badge.svg" alt="Sponsors on Open Collective"></a>
-    <a href="https://www.codetriage.com/bagisto/bagisto"><img src="https://www.codetriage.com/bagisto/bagisto/badges/users.svg" alt="Open Source Helpers"></a>
-</p>
+This project was generated with [`@vendure/create`](https://github.com/vendurehq/vendure/tree/master/packages/create).
 
-<p align="center">
-    <a href="https://twitter.com/intent/follow?screen_name=bagistoshop"><img src="https://img.shields.io/twitter/follow/bagistoshop?style=social"></a>
-    <a href="https://www.youtube.com/channel/UCbrfqnhyiDv-bb9QuZtonYQ"><img src="https://img.shields.io/youtube/channel/subscribers/UCbrfqnhyiDv-bb9QuZtonYQ?style=social"></a>
-</p>
+Useful links:
 
-<p align="center">
-    ➡️ <a href="https://bagisto.com/en/">Website</a> | <a href="https://devdocs.bagisto.com/">Documentation</a> | <a href="https://devdocs.bagisto.com/2.3/introduction/installation.html#installation">Installation Guide</a> | <a href="https://devdocs.bagisto.com/2.3/introduction/docker.html">Docker Installation</a>  | <a href="https://forums.bagisto.com/">Forums</a> | <a href="https://www.facebook.com/groups/bagisto/">Community</a> ⬅️
-</p>
+- [Vendure docs](https://www.vendure.io/docs)
+- [Vendure Discord community](https://www.vendure.io/community)
+- [Vendure on GitHub](https://github.com/vendurehq/vendure)
+- [Vendure plugin template](https://github.com/vendurehq/plugin-template)
 
+## Directory structure
 
-<p align="center" style="display: inline;">
-    <img class="flag-img" src="https://flagicons.lipis.dev/flags/4x3/ar.svg" alt="Arabic" width="24" height="24">
-    <img class="flag-img" src="https://flagicons.lipis.dev/flags/4x3/de.svg" alt="German" width="24" height="24">
-    <img class="flag-img" src="https://flagicons.lipis.dev/flags/4x3/us.svg" alt="English" width="24" height="24">
-    <img class="flag-img" src="https://flagicons.lipis.dev/flags/4x3/es.svg" alt="Spanish" width="24" height="24">
-    <img class="flag-img" src="https://flagicons.lipis.dev/flags/4x3/ir.svg" alt="Persian" width="24" height="24">
-    <img class="flag-img" src="https://flagicons.lipis.dev/flags/4x3/it.svg" alt="Italian" width="24" height="24">
-    <img class="flag-img" src="https://flagicons.lipis.dev/flags/4x3/nl.svg" alt="Dutch" width="24" height="24">
-    <img class="flag-img" src="https://flagicons.lipis.dev/flags/4x3/pl.svg" alt="Polish" width="24" height="24">
-    <img class="flag-img" src="https://flagicons.lipis.dev/flags/4x3/pt.svg" alt="Portuguese" width="24" height="24">
-    <img class="flag-img" src="https://flagicons.lipis.dev/flags/4x3/tr.svg" alt="Turkish" width="24" height="24">
-    <img class="flag-img" src="https://flagicons.lipis.dev/flags/4x3/eg.svg" alt="Egyptian" width="24" height="24">
-    <img class="flag-img" src="https://flagicons.lipis.dev/flags/4x3/cn.svg" alt="Chinese" width="24" height="24">
-</p>
+* `/src` contains the source code of your Vendure server. All your custom code and plugins should reside here.
+* `/static` contains static (non-code) files such as assets (e.g. uploaded images) and email templates.
 
-<a href="https://www.youtube.com/watch?v=OHbte7hdxYU">
-    <img class="flag-img" src="https://raw.githubusercontent.com/bagisto/temp-media/master/bagisto-featured.png" alt="Chinese" width="100%">
-</a>
+## Development
 
-# Introduction
+```
+npm run dev
+```
 
-Bagisto is an opensource [laravel eCommerce](https://www.bagisto.com/) framework built on some of the hottest technologies such as [Laravel](https://laravel.com/) (a [PHP](https://secure.php.net/) framework) and [Vue.js](https://vuejs.org/) a progressive Javascript framework.
+will start the Vendure server and [worker](https://www.vendure.io/docs/developer-guide/vendure-worker/) processes from
+the `src` directory.
 
-Bagisto can help you cut down your time, cost, and workforce for building online stores or migrating from physical stores to the ever-demanding online world. Your business—whether small or huge—can benefit. The best part, it's straightforward to set it up!
+## Build
 
-![enter image description here](https://raw.githubusercontent.com/bagisto/temp-media/master/stats.webp)
+```
+npm run build
+```
 
-# Getting Started
+will compile the TypeScript sources into the `/dist` directory.
 
-![enter image description here](https://raw.githubusercontent.com/bagisto/temp-media/master/geting-starded.png)
+## Production
 
-[Install Bagisto](https://devdocs.bagisto.com/2.3/introduction/installation.html#install-using-gui-installer) with or without Composer (Check [Requirement Details](https://bagisto.com/en/download/))
+For production, there are many possibilities which depend on your operational requirements as well as your production
+hosting environment.
 
-Follow the [Getting Started with Bagisto](https://www.youtube.com/watch?v=s_DhQrjK8Tw&list=PLe30vg_FG4OS3BU8rHUKQZ2mnX45xwSMc) Tutorial
+### Running directly
 
-You can browse through the Free [Live Demo](https://demo.bagisto.com/)
+You can run the built files directly with the `start` script:
 
-## ☁️ Cloud Installation via Amazon AMI
+```
+npm run start
+```
 
-You can also deploy Bagisto quickly using our pre-configured Amazon Machine Image (AMI) available on the AWS Marketplace:
+You could also consider using a process manager like [pm2](https://pm2.keymetrics.io/) to run and manage
+the server & worker processes.
 
-👉 [**Launch Bagisto on AWS**](https://aws.amazon.com/marketplace/pp/prodview-r3xv62axcqkpa)
+### Using Docker
 
-This AMI allows you to get started with Bagisto on a cloud environment without manual setup. Ideal for scalable production or testing environments.
+We've included a sample [Dockerfile](./Dockerfile) which you can build with the following command:
 
-# Accelerate Your Online Store Launch with the Bagisto Starter Pack!
+```
+docker build -t vendure .
+```
 
-Empower your e-commerce journey with the [Bagisto Starter Pack](https://store.webkul.com/bagisto-starter-pack.html), streamlining setup and integration for a seamless online store launch. Get ready to unlock success in the digital marketplace! 
+This builds an image and tags it with the name "vendure". We can then run it with:
 
-# Open Source B2B eCommerce Platform
+```
+# Run the server
+docker run -dp 3000:3000 -e "DB_HOST=host.docker.internal" --name vendure-server vendure npm run start:server
 
-The [B2B eCommerce Platform](https://bagisto.com/en/b2b-commerce-platform/) enhances your Bagisto store with advanced Business-to-Business (B2B) features. It enables company-based purchasing, multi-user access, quote negotiation, and procurement management — empowering businesses to handle B2B workflows efficiently within a single platform.
+# Run the worker
+docker run -dp 3000:3000 -e "DB_HOST=host.docker.internal" --name vendure-worker vendure npm run start:worker
+```
 
-![Bagisto B2B Ecommerce Image](https://github.com/bagisto/temp-media/blob/master/intro-banner.webp)
+Here is a breakdown of the command used above:
 
-# Multi Vendor Marketplace
+- `docker run` - run the image we created with `docker build`
+- `-dp 3000:3000` - the `-d` flag means to run in "detached" mode, so it runs in the background and does not take
+control of your terminal. `-p 3000:3000` means to expose port 3000 of the container (which is what Vendure listens
+on by default) as port 3000 on your host machine.
+- `-e "DB_HOST=host.docker.internal"` - the `-e` option allows you to define environment variables. In this case we
+are setting the `DB_HOST` to point to a special DNS name that is created by Docker desktop which points to the IP of
+the host machine. Note that `host.docker.internal` only exists in a Docker Desktop environment and thus should only be
+used in development.
+- `--name vendure-server` - we give the container a human-readable name.
+- `vendure` - we are referencing the tag we set up during the build.
+- `npm run start:server` - this last part is the actual command that should be run inside the container.
 
-[Multi Vendor Marketplace](https://bagisto.com/en/laravel-multi-vendor-marketplace/) transforms a standard store into a complete marketplace, allowing the admin to manage sellers, commissions, product approvals, and order handling, while giving vendors a dedicated dashboard to manage their catalog, orders, and transactions.
+### Docker Compose
 
-![Multi Vendor Marketplace Image](https://github.com/bagisto/temp-media/blob/master/multi-vendor-marketplace.webp)
+We've included a [docker-compose.yml](./docker-compose.yml) file which includes configuration for commonly-used
+services such as PostgreSQL, MySQL, MariaDB, Elasticsearch and Redis.
 
-# Multi Tenant eCommerce
+To use Docker Compose, you will need to have Docker installed on your machine. Here are installation
+instructions for [Mac](https://docs.docker.com/desktop/install/mac-install/), [Windows](https://docs.docker.com/desktop/install/windows-install/),
+and [Linux](https://docs.docker.com/desktop/install/linux/).
 
-[Multi Tenant eCommerce](https://bagisto.com/en/laravel-multi-tenant-saas/) in Bagisto allows businesses to build a SaaS-based marketplace platform where multiple vendors or merchants can create and manage their own individual stores under a single system.
+You can start the services with:
 
-![Multi Tenant eCommerce Image](https://github.com/bagisto/temp-media/blob/master/multi-tenant.webp)
+```shell
+docker-compose up <service>
 
-# POS 
+# examples:
+docker-compose up postgres_db
+docker-compose up redis
+```
 
-[Point of Sale](https://bagisto.com/en/laravel-pos/) system manages retail operations efficiently, handling inventory management and fast customer checkout for your store.
+## Plugins
 
-![POS Image](https://github.com/bagisto/temp-media/blob/master/pos.webp)
+In Vendure, your custom functionality will live in [plugins](https://www.vendure.io/docs/plugins/).
+These should be located in the `./src/plugins` directory.
 
-# Headless Commerce
+To create a new plugin run:
 
-The power of headless laravel commerce now comes to Bagisto enabling you to experience seamless and easily scalable storefront performance. Backed by some of the hottest tech stacks, Bagisto commerce can now be used to build powerful headless commerce solutions offering blazing-fast speed and easy customization powered by Next.js
+```
+npx vendure add
+```
 
-## Next.js Commerce
+and select `[Plugin] Create a new Vendure plugin`.
 
-![enter image description here](https://raw.githubusercontent.com/bagisto/temp-media/master/next.png)
+## Migrations
 
-Develop and deploy your next headless commerce storefronts with Next JS and Bagisto: [https://github.com/bagisto/nextjs-commerce](https://github.com/bagisto/nextjs-commerce)
+[Migrations](https://www.vendure.io/docs/developer-guide/migrations/) allow safe updates to the database schema. Migrations
+will be required whenever you make changes to the `customFields` config or define new entities in a plugin.
 
-# Open Source Mobile eCommerce
+To generate a new migration, run:
 
-Revolutionize Your Online Store with Bagisto's Open Source eCommerce Mobile 
+```
+npx vendure migrate
+```
 
-![enter image description here](https://raw.githubusercontent.com/bagisto/temp-media/master/open-source-ecommerce-mobile.png)
+The generated migration file will be found in the `./src/migrations/` directory, and should be committed to source control.
+Next time you start the server, and outstanding migrations found in that directory will be run by the `runMigrations()`
+function in the [index.ts file](./src/index.ts).
 
-Mobile eCommerce powered by Flutter & Laravel: https://github.com/bagisto/opensource-ecommerce-mobile-app
+If, during initial development, you do not wish to manually generate a migration on each change to customFields etc, you
+can set `dbConnectionOptions.synchronize` to `true`. This will cause the database schema to get automatically updated
+on each start, removing the need for migration files. Note that this is **not** recommended once you have production
+data that you cannot lose.
 
-# AI Powered eCommerce
+---
 
-You can integrate popular large language models like GPT-5, Gemini 3, Mistral, and LLaMA 4, Grok (xAI),GLM 4.6,Kimi-K2, Qwen 3, Deepseek etc to build [AI-powered eCommerce](https://bagisto.com/en/extensions/laravel-chatbot-using-openai-chatgpt-llm/) applications with Bagisto. Some of the popular use cases where you can make use of LLMs to build AI apps are chatbot, automated product descriptions, customer support, search, and recommendations.
+You can also run any pending migrations manually, without starting the server via the "vendure migrate" command.
 
-![enter image description here](https://raw.githubusercontent.com/bagisto/temp-media/master/ai_powered_ecommerce.png)
+---
 
-You can incorporate LLM API with your bagisto applications to send and receive queries and ensure proper error handling and rate limiting to prevent overuse of the API
+## Troubleshooting
 
-# Decentralised eCommerce
+### Error: Could not load the "sharp" module using the \[OS\]-x\[Architecture\] runtime when running Vendure server.
 
-Build [decentralised applications](https://bagisto.com/en/services/blockchain-commerce/) with Bagisto on popular blockchains like Ethereum and Solana by integrating smart contracts with the eCommerce platform. You can have decentralised marketplaces, [NFT marketplaces](https://bagisto.com/en/nft-marketplace/), and decentralised e-signing with the laravel eCommerce system.
+- Make sure your Node version is ^18.17.0 || ^20.3.0 || >=21.0.0 to support the Sharp library.
+- Make sure your package manager is up to date.
+- **Not recommended**: if none of the above helps to resolve the issue, install sharp specifying your machines OS and Architecture. For example: `pnpm install sharp --config.platform=linux --config.architecture=x64` or `npm install sharp --os linux --cpu x64`
 
-![enter image description here](https://raw.githubusercontent.com/bagisto/temp-media/master/decentralised-ecommerce.png)
-
-# Commerce For Every Need
-
-![enter image description here](https://raw.githubusercontent.com/bagisto/temp-media/master/every-need.png)
-
-With Bagisto, you can easily create use cases for various commerce needs like Marketplaces, PWA, Native Mobile Apps, Multi-Tenants systems, Blockchain and many more.
-
-# Built In Extensions
-
-![enter image description here](https://raw.githubusercontent.com/bagisto/temp-media/master/built_in_extension.png)
-
-Make use of 100+ Bagisto pre-built extensions from [Bagisto Extension Markeptlace](https://bagisto.com/en/extensions/)
-
-# Community
-
-![enter image description here](https://raw.githubusercontent.com/bagisto/temp-media/master/community.png)
-
-Get Bagisto support on [Facebook Group](https://www.facebook.com/groups/bagisto) and [Forum](https://forums.bagisto.com/)
-Would like to help us build the most developer-friendly E-Commerce platform? Start by reading our [Contributing Guide](https://github.com/bagisto/bagisto/blob/master/.github/CONTRIBUTING.md)!
-
-# License
-Bagisto is a fully open-source Laravel eCommerce framework that will always remain free under the [MIT License](https://github.com/bagisto/bagisto/blob/2.3/LICENSE).
-
-# Security Vulnerabilities
-If you think that you have found a security issue in Bagisto, please do not use the issue tracker and do not post it publicly. Instead, all security issues must be sent to [mailto:support@bagisto.com](mailto:support@bagisto.com).
-
-# Contributors
-
-This project is on [Open Collective](https://opencollective.com/bagisto), and it exists thanks to the people who contribute.
-
-<a href="https://github.com/bagisto/bagisto/graphs/contributors"><img src="https://opencollective.com/bagisto/contributors.svg?width=890&button=false"/></a>
-
-# Backers
-
-Thank you to all our backers! 🙏
-
-<a href="https://opencollective.com/bagisto" target="_blank"><img src="https://opencollective.com/bagisto/backers.svg?width=890"></a>
-
-# Sponsors
-
-Support this project by becoming a sponsor. Your logo will show up here with a link to your website.
-
-<a href="https://opencollective.com/bagisto" target="_blank"><img src="https://opencollective.com/bagisto/sponsors.svg?width=890&isActive=true"></a>

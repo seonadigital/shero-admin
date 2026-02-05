@@ -1,116 +1,115 @@
+# INFORMATION
+# We are not exposing the default ports for the services in this file.
+# This is to avoid conflicts with existing services on your machine.
+# In case you don't have any services running on the default ports, you can expose them by changing the
+# ports section in the services block. Please don't forget to update the ports in the .env file as well.
+
 services:
-    laravel.test:
-        build:
-            context: ./vendor/laravel/sail/runtimes/8.3
-            dockerfile: Dockerfile
-            args:
-                WWWGROUP: '${WWWGROUP}'
-        image: sail-8.3/app
-        extra_hosts:
-            - 'host.docker.internal:host-gateway'
-        ports:
-            - '${APP_PORT:-80}:80'
-            - '${VITE_PORT:-5173}:${VITE_PORT:-5173}'
-        environment:
-            WWWUSER: '${WWWUSER}'
-            LARAVEL_SAIL: 1
-            XDEBUG_MODE: '${SAIL_XDEBUG_MODE:-off}'
-            XDEBUG_CONFIG: '${SAIL_XDEBUG_CONFIG:-client_host=host.docker.internal}'
-            IGNITION_LOCAL_SITES_PATH: '${PWD}'
+    postgres_db:
+        image: postgres:16-alpine
         volumes:
-            - '.:/var/www/html'
-        networks:
-            - sail
-        depends_on:
-            - mysql
-            - redis
-            - elasticsearch
-            - kibana
-            - mailpit
-    mysql:
-        image: 'mysql/mysql-server:8.0'
+            - postgres_db_data:/var/lib/postgresql/data
         ports:
-            - '${FORWARD_DB_PORT:-3306}:3306'
+            - "6543:5432"
         environment:
-            MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
-            MYSQL_ROOT_HOST: '%'
-            MYSQL_DATABASE: '${DB_DATABASE}'
-            MYSQL_USER: '${DB_USERNAME}'
-            MYSQL_PASSWORD: '${DB_PASSWORD}'
-            MYSQL_ALLOW_EMPTY_PASSWORD: 1
+            POSTGRES_DB: vendure
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: rndsgwsQKS0Vi9TV4rJUHWpAzbH10qHYutTUaoDJdWFoSmo2eShjfYF3HnYEC8pG
+        labels:
+            - "io.vendure.create.name=shero-admin"
+
+    mysql_db:
+        image: mysql:8
         volumes:
-            - 'sail-mysql:/var/lib/mysql'
-            - './vendor/laravel/sail/database/mysql/create-testing-database.sh:/docker-entrypoint-initdb.d/10-create-testing-database.sh'
-        networks:
-            - sail
-        healthcheck:
-            test:
-                - CMD
-                - mysqladmin
-                - ping
-                - '-p${DB_PASSWORD}'
-            retries: 3
-            timeout: 5s
+            - mysql_db_data:/var/lib/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: 'ROOT'
+            MYSQL_DATABASE: vendure
+            MYSQL_USER: postgres
+            MYSQL_PASSWORD: rndsgwsQKS0Vi9TV4rJUHWpAzbH10qHYutTUaoDJdWFoSmo2eShjfYF3HnYEC8pG
+        ports:
+            - "4306:3306"
+        labels:
+            - "io.vendure.create.name=shero-admin"
+
+    mariadb_db:
+        image: mariadb:10
+        volumes:
+            - mariadb_db_data:/var/lib/mysql
+        environment:
+            MARIADB_ROOT_PASSWORD: 'ROOT'
+            MARIADB_DATABASE: vendure
+            MARIADB_USER: postgres
+            MARIADB_PASSWORD: rndsgwsQKS0Vi9TV4rJUHWpAzbH10qHYutTUaoDJdWFoSmo2eShjfYF3HnYEC8pG
+        ports:
+            - "3306:3306"
+        labels:
+            - "io.vendure.create.name=shero-admin"
+
+    # RECOMMENDED (especially for production)
+    # Want to use our BullMQ with Redis instead of our default database job queue?
+    # Checkout our BullMQ plugin: https://docs.vendure.io/reference/core-plugins/job-queue-plugin/bull-mqjob-queue-plugin/
     redis:
-        image: 'redis:alpine'
+        image: redis:7-alpine
         ports:
-            - '${FORWARD_REDIS_PORT:-6379}:6379'
+            - "6479:6379"
         volumes:
-            - 'sail-redis:/data'
-        networks:
-            - sail
-        healthcheck:
-            test:
-                - CMD
-                - redis-cli
-                - ping
-            retries: 3
-            timeout: 5s
+            - redis_data:/data
+        labels:
+            - "io.vendure.create.name=shero-admin"
+
+    # RECOMMENDED
+    # Want to use Typesense instead of our default search engine?
+    # Checkout our advanced search plugin: https://vendure.io/hub/vendure-plus-advanced-search-plugin
+    # To run the typesense container run "docker compose up -d typesense"
+    typesense:
+        image: typesense/typesense:27.0
+        command: [ '--data-dir', '/data', '--api-key', 'SuperSecret' ]
+        ports:
+            - "8208:8108"
+        volumes:
+            - typesense_data:/data
+        labels:
+            - "io.vendure.create.name=shero-admin"
+
+    # Want to use Elasticsearch instead of our default database engine?
+    # Checkout our Elasticsearch plugin: https://docs.vendure.io/reference/core-plugins/elasticsearch-plugin/
+    # To run the elasticsearch container run "docker compose up -d elasticsearch"
     elasticsearch:
-        image: docker.elastic.co/elasticsearch/elasticsearch:7.17.0
-        ports:
-            - '9200:9200'
-            - '9300:9300'
+        image: docker.elastic.co/elasticsearch/elasticsearch:7.1.1
         environment:
-            - xpack.security.enabled=false
-            - discovery.type=single-node
-            - bootstrap.memory_lock=true
-            - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
-        ulimits:
-            memlock:
-                soft: -1
-                hard: -1
-            nofile:
-                soft: 65536
-                hard: 65536
+            discovery.type: single-node
+            bootstrap.memory_lock: true
+            ES_JAVA_OPTS: -Xms512m -Xmx512m
         volumes:
-            - 'sail-elasticsearch:/var/lib/elasticsearch/data'
-        networks:
-            - sail
-    kibana:
-        image: docker.elastic.co/kibana/kibana:7.17.0
+            - elasticsearch_data:/usr/share/elasticsearch/data
         ports:
-            - 5601:5601
-        environment:
-            ELASTICSEARCH_HOSTS: 'http://elasticsearch:9200'
-        networks:
-            - sail
-        depends_on:
-            - elasticsearch
-    mailpit:
-        image: 'axllent/mailpit:latest'
-        ports:
-            - '${FORWARD_MAILPIT_PORT:-1025}:1025'
-            - '${FORWARD_MAILPIT_DASHBOARD_PORT:-8025}:8025'
-        networks:
-            - sail
-networks:
-    sail:
-        driver: bridge
+            - "9300:9200"
+        labels:
+            - "io.vendure.create.name=shero-admin"
+
 volumes:
-    sail-mysql:
+    postgres_db_data:
         driver: local
-    sail-redis:
+        labels:
+            - "io.vendure.create.name=shero-admin"
+    mysql_db_data:
         driver: local
-    sail-elasticsearch:
+        labels:
+            - "io.vendure.create.name=shero-admin"
+    mariadb_db_data:
         driver: local
+        labels:
+            - "io.vendure.create.name=shero-admin"
+    typesense_data:
+        driver: local
+        labels:
+            - "io.vendure.create.name=shero-admin"
+    elasticsearch_data:
+        driver: local
+        labels:
+            - "io.vendure.create.name=shero-admin"
+    redis_data:
+        driver: local
+        labels:
+            - "io.vendure.create.name=shero-admin"
